@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ChartComponent } from './chart/chart.component';
 import { ChooseColumnComponent } from './choose-column/choose-column.component';
+import { UploadModule } from './upload/upload.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ChooseColumnComponent } from './choose-column/choose-column.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    UploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]
