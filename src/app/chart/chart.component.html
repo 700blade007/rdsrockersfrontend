@@ -1,0 +1,10 @@
+<ul class="heroes">
+  <li *ngFor="let coordiante of dataPoints">
+    <span class="badge">{{coordiante.label}}</span> {{coordiante.y}}
+  </li>
+</ul>
+<select [(ngModel)]="chartType" (ngModelChange)="renderGraph()"> 
+  <option *ngFor="let chartType of chartTypes">{{chartType}}</option>
+</select>
+{{chartType}}
+<div id="chartContainer"></div>
