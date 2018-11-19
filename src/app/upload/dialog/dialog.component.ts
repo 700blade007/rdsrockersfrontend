@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { UploadService } from '../upload.service';
 import { forkJoin } from 'rxjs';
+import { Router } from '@angular/router';
+import { CommunicateService } from 'src/app/communicate.service';
 
 @Component({
   selector: 'app-dialog',
@@ -18,7 +20,7 @@ export class DialogComponent {
   uploading = false;
   uploadSuccessful = false;
 
-  constructor(public dialogRef: MatDialogRef<DialogComponent>, public uploadService: UploadService) {}
+  constructor(public dialogRef: MatDialogRef<DialogComponent>,public uploadService: UploadService, private communicateService: CommunicateService) {}
 
   addFiles() {
     this.file.nativeElement.click();
@@ -35,6 +37,7 @@ export class DialogComponent {
   closeDialog() {
     // if everything was uploaded already, just close the dialog
     if (this.uploadSuccessful) {
+      this.communicateService.changeStatus(true);
       return this.dialogRef.close();
     }
   

@@ -1,10 +1,45 @@
-<ul class="heroes">
+<!-- <ul class="heroes">
   <li *ngFor="let coordiante of dataPoints">
     <span class="badge">{{coordiante.label}}</span> {{coordiante.y}}
   </li>
-</ul>
-<select [(ngModel)]="chartType" (ngModelChange)="renderGraph()"> 
-  <option *ngFor="let chartType of chartTypes">{{chartType}}</option>
-</select>
-{{chartType}}
-<div id="chartContainer"></div>
+</ul> -->
+<div class="container" style="padding: 20px">
+  <div class="row">
+    <app-upload class='col-1 mb-3' style="padding: 0px"></app-upload>
+    <div class='col-10 mb-3' ng-disabled='uploadStatus'>
+      <form (ngSubmit)="getCoordinates()">
+        <div class="row">
+          <div class="input-group col-5 mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">X axis:</span>
+            </div>
+            <select class="custom-select" [(ngModel)]="XColumn" name="XColumn">
+              <option *ngFor="let column of columns">{{column}}</option>
+            </select>
+          </div>
+          <div class="input-group col-5 mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Y axis:</span>
+            </div>
+            <select class="custom-select" [(ngModel)]="YColumn" name="YColumn">
+              <option *ngFor="let column of columns">{{column}}</option>
+            </select>
+          </div>
+          <button class='btn btn-success col-2 mb-3' type="submit">Plot</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- <select class="custom-select" *ngIf="showChartTypes" [(ngModel)]="chartType" (ngModelChange)="renderGraph()">
+    <option *ngFor="let chartType of chartTypes">{{chartType}}</option>
+  </select> -->
+  <div *ngIf="showChartTypes" style="margin: 10px">
+    <div class="form-check form-check-inline" *ngFor="let chartTyp of chartTypes">
+      <input class="form-check-input" type="radio" name="inlineRadioOptions" [(ngModel)]="chartType" (ngModelChange)="renderGraph()"
+        [value]="chartTyp">
+      <label class="form-check-label" for="inlineRadio2">{{chartTyp}}</label>
+    </div>
+  </div>
+  <div *ngIf="showChartTypes" id="chartContainer"></div>
+
+</div>
