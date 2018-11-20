@@ -82,15 +82,16 @@ export class ChartComponent implements OnInit {
   getCoordinates() {
     this.showChartTypes = true;
     let a = new axis();
-    if (typeof this.XColumn == 'undefined')
+    if (typeof this.XColumn == 'undefined' || this.XColumn == "")
       a.xaxis = this.XColumns[0];
     else
       a.xaxis = this.XColumn;
-    if (typeof this.YColumn == 'undefined')
+    if (typeof this.YColumn == 'undefined' || this.YColumn == "")
       a.yaxis = this.YColumns[0];
     else
       a.yaxis = this.YColumn;
     a.func = this.func;
+    console.log(a);
     this.coordinateService.getCoordinates(a).subscribe(data => {
       this.dataPoints = data;
       this.renderGraph();
