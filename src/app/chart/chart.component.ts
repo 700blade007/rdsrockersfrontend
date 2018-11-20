@@ -14,12 +14,15 @@ export class ChartComponent implements OnInit {
 
   title = 'canvasjs-angular';
   dataPoints: coordinate[];
-  columns: string[];
+  XColumns: string[];
+  YColumns: string[];
   XColumn: string;
   YColumn: string;
   uploadStatus = false;
   showChartTypes: boolean = false;
   chartType: string = 'area';
+  funcs = ['sum','avg','min','max'];
+  func = 'sum';
   chartTypes: string[] =
     ['area',
       'bar',
@@ -38,7 +41,8 @@ export class ChartComponent implements OnInit {
     this.communicateService.cast.subscribe(data => {
       this.uploadStatus = data;
       this.showChartTypes = false;
-      this.getColumnNames();
+      this.getXColumnNames();
+      this.getYColumnNames();
     });
 
   }
@@ -61,11 +65,17 @@ export class ChartComponent implements OnInit {
     chart.render();
   }
 
-  getColumnNames() {
-    this.coordinateService.getColumnNames().subscribe(data => {
-      this.columns = data;
-      this.XColumn = this.columns[0];
-      this.YColumn = this.columns[0];
+  getXColumnNames() {
+    this.coordinateService.getXColumnNames().subscribe(data => {
+      this.XColumns = data;
+      this.XColumn = "";
+    });
+  }
+
+  getYColumnNames() {
+    this.coordinateService.getYColumnNames().subscribe(data => {
+      this.YColumns = data;
+      this.YColumn = "";
     });
   }
 
@@ -73,17 +83,17 @@ export class ChartComponent implements OnInit {
     this.showChartTypes = true;
     let a = new axis();
     if (typeof this.XColumn == 'undefined')
-      a.xaxis = this.columns[0];
+      a.xaxis = this.XColumns[0];
     else
       a.xaxis = this.XColumn;
     if (typeof this.YColumn == 'undefined')
-      a.yaxis = this.columns[0];
+      a.yaxis = this.YColumns[0];
     else
       a.yaxis = this.YColumn;
+    a.func = this.func;
     this.coordinateService.getCoordinates(a).subscribe(data => {
       this.dataPoints = data;
       this.renderGraph();
     });
   }
-
 }

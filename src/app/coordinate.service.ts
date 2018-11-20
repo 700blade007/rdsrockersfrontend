@@ -14,7 +14,11 @@ export class CoordinateService {
     return this.http.post<coordinate[]>('http://localhost:8080/getcoordinates',a);
   }
 
-  getColumnNames() {
-    return this.http.get<string[]>('http://localhost:8080/getcolumnnames');
+  getXColumnNames() {
+    return this.http.get<string[]>('http://localhost:8080/getxcolumnnames');
+  }
+
+  getYColumnNames() {
+    return this.http.get<string[]>('http://localhost:8080/getycolumnnames');
   }
 }
